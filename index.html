@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Todo List</title>
+    <link rel="stylesheet" href="app.css" />
+  </head>
+
+  <body>
+    <ul id="tasks" class="tasks"></ul>
+    <textarea class="textbox" placeholder="Notes"></textarea>
+    <script>
+      const box  = document.querySelector('.textbox');
+      const list = document.getElementById('tasks');
+      const esc = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      function addTask(text) {
+        const li = document.createElement('li');
+        li.className = 'task';
+        li.innerHTML = `<span>${esc(text)}</span><button class="del" aria-label="Delete">✕</button>`;
+        list.prepend(li);
+      }
+
+      function save() {
+        const items = [...list.querySelectorAll('.task span')].map(s => s.textContent);
+        localStorage.setItem('tasks', JSON.stringify(items));
+      }
+
+      function load() {
+        const items = JSON.parse(localStorage.getItem('tasks') || '[]');
+        items.forEach(addTask);
+      }
+      box.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const text = box.value.trim();
+          if (!text) return;
+          addTask(text);
+          box.value = '';
+          save();
+        }
+      });
+      list.addEventListener('click', (e) => {
+        if (e.target.closest('.del')) {
+          e.target.closest('li').remove();
+          save();
+        }
+      });
+      load();
+    </script>
+  </body>
+</html>

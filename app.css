@@ -1,0 +1,41 @@
+.textbox {
+  width: 90%;
+  height: 5%;
+  padding: 1%;
+  font-size: .9rem;
+  text-align: left;
+  border: 1px solid #000000;
+  border-radius: 25px;
+  background: #e4e2dc;
+  position: fixed; bottom: 3%; left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.tasks {
+  list-style: none;
+  margin: 1%;
+	padding-left: .5%;
+	padding-right: .5%;
+}
+
+.task {
+  display: flex;
+  align-items: start;
+  gap: 8px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  background: #e4e2dc;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  word-break: break-word;
+}
+
+.task .del {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+}
